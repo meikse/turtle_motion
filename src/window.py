@@ -12,7 +12,7 @@ class WindowLocator(Node):
 
         self.declare_parameter('window_name', "TurtleSim") 
 
-        self.publisher_ = self.create_publisher(Point, "location", 1) 
+        self.publisher_ = self.create_publisher(Point, "location/window", 1) 
         self.timer = self.create_timer(1, self.callback)
 
         self.msg = Point()
