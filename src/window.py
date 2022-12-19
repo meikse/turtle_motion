@@ -12,12 +12,16 @@ class WindowLocator(Node):
 
         self.declare_parameter('window_name', "TurtleSim") 
 
-        self.publisher_ = self.create_publisher(Point, "location/window", 1) 
+        self.loc_pub_ = self.create_publisher(Point, "window/location", 1) 
+        self.dim_pub_ = self.create_publisher(Point, "window/dimension", 1) 
+
         self.timer = self.create_timer(1, self.callback)
 
-        self.msg = Point()
+        self.loc_msg = Point()
+        self.dim_msg = Point()
 
     def callback(self):
+
         self.name = self.get_parameter(
                 'window_name').get_parameter_value().string_value
 
@@ -29,23 +33,37 @@ class WindowLocator(Node):
         out = out.decode()              # convert from byte to string
         out = out.splitlines()          # delimiter = "\n"
 
+        win_pos = self.parse(out, "Absolute")
+        win_size = [self.parse(out, "Width")[0], self.parse(out,"Height")[0]]
+
+        # self.get_logger().info("{}".format(win_size))
+        # assign to ROS msg
+        try:
+            # absolut position
+            self.loc_msg.x = float(win_pos[0])
+            self.loc_msg.y = float(win_pos[1])
+            self.loc_msg.z = 0.                     # empty
+            self.loc_pub_.publish(self.loc_msg)
+            # dimensions
+            self.dim_msg.x = float(win_size[0])
+            self.dim_msg.y = float(win_size[1])
+            self.dim_msg.z = 0.                     # empty
+            self.dim_pub_.publish(self.dim_msg)
+
+            self.get_logger().info(
+                    "x: {},y: {}, width: {}, height: {}".format(
+                        win_pos[0],win_pos[1],win_size[0], win_size[1]))
+        except:
+            self.get_logger().info("window infos not obtainable.")
+
+
+    def parse(self, out, key):
         # find position in list for abs windows location in shell output
-        parsed_out = [out[i].find("Absolute") for i, _ in enumerate(out)]
+        parsed_out = [out[i].find(key) for i, _ in enumerate(out)]
         # receive index of finding
         index = [i for i, val in enumerate(parsed_out) if val != -1]
         # filter values of from list via index
-        win_pos = [int(''.join(filter(str.isdigit, out[i]))) for i in index]
-        # self.get_logger().info("{}".format(win_pos))
-        # assign to ROS msg
-        try:
-            self.msg.x = float(win_pos[0])
-            self.msg.y = float(win_pos[1])
-            self.msg.z = 0.                     # empty
-            self.publisher_.publish(self.msg)
-            self.get_logger().info("x: {},y: {}".format(win_pos[0],win_pos[1]))
-        except:
-            self.get_logger().info("window position not obtainable.")
-
+        return [int(''.join(filter(str.isdigit, out[i]))) for i in index]
 
 def main(args=None):
     rclpy.init(args=args)
