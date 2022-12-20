@@ -33,12 +33,12 @@ class WindowLocator(Node):
         out = out.decode()              # convert from byte to string
         out = out.splitlines()          # delimiter = "\n"
 
-        win_pos = self.parse(out, "Absolute")
-        win_size = [self.parse(out, "Width")[0], self.parse(out,"Height")[0]]
-
         # self.get_logger().info("{}".format(win_size))
         # assign to ROS msg
         try:
+            win_pos = self.parse(out, "Absolute")
+            win_size = [self.parse(out, "Width")[0], self.parse(out,"Height")[0]]
+
             # absolut position
             self.loc_msg.x = float(win_pos[0])
             self.loc_msg.y = float(win_pos[1])
