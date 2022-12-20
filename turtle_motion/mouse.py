@@ -20,7 +20,7 @@ def main(args=None):
             msg.y = float(y)
             msg.z = 0.
             publisher.publish(msg)
-            node.get_logger().info("x: {},y: {}".format(x,y))
+            # node.get_logger().info("x: {},y: {}".format(x,y))
         except:
             node.get_logger().info("mouse position not obtainable.")
 

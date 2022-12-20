@@ -50,9 +50,9 @@ class WindowLocator(Node):
             self.dim_msg.z = 0.                     # empty
             self.dim_pub_.publish(self.dim_msg)
 
-            self.get_logger().info(
-                    "x: {},y: {}, width: {}, height: {}".format(
-                        win_pos[0],win_pos[1],win_size[0], win_size[1]))
+            # self.get_logger().info(
+            #         "x: {},y: {}, width: {}, height: {}".format(
+            #             win_pos[0],win_pos[1],win_size[0], win_size[1]))
         except:
             self.get_logger().info("window infos not obtainable.")
 
