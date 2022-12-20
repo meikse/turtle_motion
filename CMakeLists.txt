@@ -16,12 +16,12 @@ find_package(geometry_msgs REQUIRED)
 add_executable(control src/control.cpp)
 ament_target_dependencies(control rclcpp geometry_msgs)
 
-# add_executable(transform src/transform.cpp)
-# ament_target_dependencies(transform rclcpp geometry_msgs)
+add_executable(transform src/transform.cpp)
+ament_target_dependencies(transform rclcpp geometry_msgs)
 
 install(TARGETS 
   control 
-  # transform 
+  transform 
   DESTINATION lib/${PROJECT_NAME}
   )
 
