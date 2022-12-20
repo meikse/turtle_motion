@@ -9,7 +9,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     node = rclpy.create_node('mouse_locator')
-    publisher = node.create_publisher(Point, 'location/mouse', 1)
+    publisher = node.create_publisher(Point, 'mouse/location', 1)
 
     msg = Point()
 
