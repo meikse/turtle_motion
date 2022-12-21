@@ -11,10 +11,11 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(turtlesim REQUIRED)
 
 # C++ 
 add_executable(control src/control.cpp)
-ament_target_dependencies(control rclcpp geometry_msgs)
+ament_target_dependencies(control rclcpp geometry_msgs turtlesim)
 
 add_executable(transform src/transform.cpp)
 ament_target_dependencies(transform rclcpp geometry_msgs)

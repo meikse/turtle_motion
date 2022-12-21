@@ -15,3 +15,7 @@ launch:
 - node:
     pkg: "turtle_motion"
     exec: "transform"
+
+- node:
+    pkg: "turtle_motion"
+    exec: "control"
