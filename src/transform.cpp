@@ -42,18 +42,18 @@ class Transform : public rclcpp::Node
   void timer_callback(){
 
     auto center = point();  // origin of turtle coord system (center of window)
-    center.x = this->window[0] + this->dimension[0] * .5;
-    center.y = this->window[1] + this->dimension[1] * .5;
+    center.x = this->window[0]; //+ this->dimension[0] * .5;
+    center.y = this->window[1] + this->dimension[1]; // * .5;
     center.z = 0.;
-    RCLCPP_INFO(this->get_logger(), "center: %.3f, %.3f", center.x, center.y);
+    /* RCLCPP_INFO(this->get_logger(), "center: %.3f, %.3f", center.x, center.y); */
     center_pub_->publish(center);
 
     auto distance = point(); // rel distance between mouse and turtle origin
     distance.x = this->mouse[0] - center.x;
     distance.y = (this->mouse[1] - center.y) * -1; // *-1 =>rotate origin frame
     distance.z = 0.;                               // image frame -> real frame
-    RCLCPP_INFO(this->get_logger(),
-        "distan: %.3f, %.3f", distance.x, distance.y);
+    /* RCLCPP_INFO(this->get_logger(), */
+        /* "distan: %.3f, %.3f", distance.x, distance.y); */
     distance_pub_->publish(distance);
   }
 
@@ -85,7 +85,7 @@ class Transform : public rclcpp::Node
         10);
 
     timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(1000),
+        std::chrono::milliseconds(100),
         std::bind(&Transform::timer_callback, this));
   }
 };

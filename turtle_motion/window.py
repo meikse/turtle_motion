@@ -15,7 +15,7 @@ class WindowLocator(Node):
         self.loc_pub_ = self.create_publisher(Point, "window/location", 1) 
         self.dim_pub_ = self.create_publisher(Point, "window/dimension", 1) 
 
-        self.timer = self.create_timer(1, self.callback)
+        self.timer = self.create_timer(.1, self.callback)
 
         self.loc_msg = Point()
         self.dim_msg = Point()
