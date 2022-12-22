@@ -76,7 +76,7 @@ void ControlTurtle::timer_callback()
   float y = setpoint.y - feedback.y;
   auto delta = atan2(y,x) - feedback.theta;
   // controller (plant only single integrators)
-  float P = .1;
+  float P = .2;
   float vector = sqrt(x*x + y*y);
   RCLCPP_INFO(this->get_logger(), "x: %.3f, y: %.3f ",delta,vector);
   // control values
