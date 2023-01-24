@@ -2,6 +2,8 @@
 
 ROS2 node to let turtlesim follow the mouse.
 
+![gif](../assets/instance.gif)
+
 ## prerequisites
 
 - [ROS2 humble](http://docs.ros.org/en/humble/Installation.html) (might work with other versions as well)
